@@ -1,16 +1,22 @@
 package org.order.orderassistant_kakao.Hamburger
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.kakao.sdk.newtoneapi.*
 import kotlinx.android.synthetic.main.activity_third_hamburger.*
+import org.order.orderassistant_kakao.MainActivity
 import org.order.orderassistant_kakao.R
+import org.order.orderassistant_kakao.Token
 
 
 class Hamburger_Start : AppCompatActivity() {
@@ -26,13 +32,17 @@ class Hamburger_Start : AppCompatActivity() {
     var first:String?=null
 
 
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_third_hamburger)
 
+        /*
         //이전 액티비티에서 값 받아오기
         val intent2 = intent
         first = intent2.extras!!.getString("first")
+
+         */
 
 
         var permission_network = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
@@ -48,7 +58,7 @@ class Hamburger_Start : AppCompatActivity() {
 
             //TTS 클라이언트 생성
             ttsClient = TextToSpeechClient.Builder()
-                .setSpeechMode(TextToSpeechClient.NEWTONE_TALK_1)     // 음성합성방식
+                .setSpeechMode(TextToSpeechClient.NEWTONE_TALK_2)     // 음성합성방식
                 .setSpeechSpeed(1.0)            // 발음 속도(0.5~4.0)
                 .setSpeechVoice(TextToSpeechClient.VOICE_WOMAN_READ_CALM)  //TTS 음색 모드 설정(여성 차분한 낭독체)
                 .setListener(object : TextToSpeechListener {
@@ -80,7 +90,9 @@ class Hamburger_Start : AppCompatActivity() {
 
 
                 sttClient?.setSpeechRecognizeListener(listener1)
-                sttClient?.startRecording(true);
+                sttClient?.startRecording(true)
+                val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
 
                 Toast.makeText(this, "음성인식을 시작합니다.", Toast.LENGTH_SHORT).show();
 
@@ -116,6 +128,8 @@ class Hamburger_Start : AppCompatActivity() {
                 }
 
                 override fun onResults(results: Bundle?) {
+                    val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
                     var builder: StringBuilder? = null
 
                     var texts =
@@ -137,7 +151,8 @@ class Hamburger_Start : AppCompatActivity() {
                             //builder?.append(")\n")
                         }
                     }
-
+                    var reset="처음"
+                    var txt0="다시"
                     var txt1="고기"
                     var txt2="치킨"
                     var txt3="새우"
@@ -165,7 +180,22 @@ class Hamburger_Start : AppCompatActivity() {
                         intent.putExtra("first", "포장")
                         startActivity(intent)
                         finish()
-                    } else {
+                    } else if (txt0 in texts.toString()) {
+                        Toast.makeText(applicationContext, "다시", Toast.LENGTH_LONG)
+                            .show()
+                        val intent =
+                            Intent(applicationContext, Hamburger_Start::class.java)
+                        startActivity(intent)
+                        finish()
+                    }else if (reset in texts.toString()) {
+                        Toast.makeText(applicationContext, "처음으로", Toast.LENGTH_LONG).show()
+                        Token.setfirst("")
+                        Token.setmenu("")
+                        Token.setside("")
+                        val intent =Intent(applicationContext, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }else {
                         var oneMore="한번 더 말해주세요."
                         ttsClient?.play(oneMore)
                     }

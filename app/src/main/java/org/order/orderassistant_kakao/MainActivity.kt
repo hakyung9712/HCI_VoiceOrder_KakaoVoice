@@ -1,10 +1,16 @@
 package org.order.orderassistant_kakao
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.Ringtone
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
                 //TTS 클라이언트 생성
                 ttsClient = TextToSpeechClient.Builder()
-                    .setSpeechMode(TextToSpeechClient.NEWTONE_TALK_1)     // 음성합성방식
+                    .setSpeechMode(TextToSpeechClient.NEWTONE_TALK_2)     // 음성합성방식
                     .setSpeechSpeed(1.0)            // 발음 속도(0.5~4.0)
                     .setSpeechVoice(TextToSpeechClient.VOICE_WOMAN_READ_CALM)  //TTS 음색 모드 설정(여성 차분한 낭독체)
                     .setListener(object : TextToSpeechListener {
@@ -63,12 +70,15 @@ class MainActivity : AppCompatActivity() {
                     })
                     .build()
 
-                var strText = "어서오세요~ 맥도날드 입니다. 매장 또는 포장 여부를 알려주세요."
+                var strText = "어서오세요~ 맥도날드 입니다.왼쪽 위에는 처음으로, 오른쪽위에는 뒤로, 하단에는 말하기 시작 버튼이 있습니다. 하단 버튼을 누르고 매장 또는 포장 여부를 말해주세요."
                 //var strText="안녕"
                 ttsClient?.play(strText)
 
 
                 first_sttStart.setOnClickListener {
+                    val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+
                     var builder = SpeechRecognizerClient.Builder()
                         .setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB)
                     sttClient = builder.build()
@@ -77,13 +87,11 @@ class MainActivity : AppCompatActivity() {
                     sttClient?.setSpeechRecognizeListener(listener1)
                     sttClient?.startRecording(true);
 
-                    Toast.makeText(this, "음성인식을 시작합니다.", Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(this,"음성 인식을 시작합니다.",Toast.LENGTH_LONG).show()
                 }
 
                 listener1 = object : SpeechRecognizeListener {
                     override fun onReady() {
-
                     }
 
                     override fun onFinished() {
@@ -110,7 +118,12 @@ class MainActivity : AppCompatActivity() {
 
                     }
 
+                    @SuppressLint("NewApi")
                     override fun onResults(results: Bundle?) {
+                        //
+                        val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                        vib.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE))
+
                         var builder: StringBuilder? = null
 
                         var texts =
@@ -132,18 +145,20 @@ class MainActivity : AppCompatActivity() {
                                 //builder?.append(")\n")
                             }
                         }
-
+                        var reset="처음"
+                        var txt0="다시"
                         var txt1="매장"
                         var txt2="포장"
                         if (txt1 in texts.toString()) {
+                            Token.setfirst("매장")
                             Toast.makeText(applicationContext, "매장 주문", Toast.LENGTH_LONG)
                                 .show()
-                            val intent =
-                                Intent(applicationContext, SecondActivity::class.java)
+                            val intent =Intent(applicationContext, SecondActivity::class.java)
                             intent.putExtra("first", "매장")
                             startActivity(intent)
                             finish()
                         } else if (txt2 in texts.toString()) {
+                            Token.setfirst("포장")
                             Toast.makeText(applicationContext, "포장 주문", Toast.LENGTH_LONG)
                                 .show()
                             val intent =
@@ -151,6 +166,14 @@ class MainActivity : AppCompatActivity() {
                             intent.putExtra("first", "포장")
                             startActivity(intent)
                             finish()
+                        }else if (txt0 in texts.toString()||reset in texts.toString()) {
+                            Toast.makeText(applicationContext, "다시", Toast.LENGTH_LONG)
+                                .show()
+                            val intent =
+                                Intent(applicationContext, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+
                         } else {
                             var oneMore="한번 더 말해주세요."
                             ttsClient?.play(oneMore)

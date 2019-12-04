@@ -1,9 +1,13 @@
 package org.order.orderassistant_kakao.Side
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +16,9 @@ import com.kakao.sdk.newtoneapi.*
 import kotlinx.android.synthetic.main.activity_final.*
 import kotlinx.android.synthetic.main.hamburger_final.*
 import kotlinx.android.synthetic.main.side_final.*
+import org.order.orderassistant_kakao.MainActivity
 import org.order.orderassistant_kakao.R
+import org.order.orderassistant_kakao.Token
 
 
 class Side_Final : AppCompatActivity() {
@@ -30,10 +36,12 @@ class Side_Final : AppCompatActivity() {
     var side:String?=null
 
 
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.side_final)
 
+        /*
         //이전 액티비티에서 값 받아오기
         val intent2 = intent
         first = intent2.extras!!.getString("first")
@@ -42,6 +50,8 @@ class Side_Final : AppCompatActivity() {
         sfinal_sttResult.setText(first)
         sfinal_sttResult2.setText(menu)
         sfinal_sttResult3.setText(side)
+
+         */
 
 
         var permission_network = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
@@ -57,7 +67,7 @@ class Side_Final : AppCompatActivity() {
 
             //TTS 클라이언트 생성
             ttsClient = TextToSpeechClient.Builder()
-                .setSpeechMode(TextToSpeechClient.NEWTONE_TALK_1)     // 음성합성방식
+                .setSpeechMode(TextToSpeechClient.NEWTONE_TALK_2)     // 음성합성방식
                 .setSpeechSpeed(1.0)            // 발음 속도(0.5~4.0)
                 .setSpeechVoice(TextToSpeechClient.VOICE_WOMAN_READ_CALM)  //TTS 음색 모드 설정(여성 차분한 낭독체)
                 .setListener(object : TextToSpeechListener {
@@ -77,6 +87,7 @@ class Side_Final : AppCompatActivity() {
                 })
                 .build()
 
+            /*
             //사이드 메뉴가 없으면 햄버거만 읽어주기
             if(sfinal_sttResult3.toString()==""){
                     ttsClient?.play(sfinal_sttResult2.getText().toString() + " " + sfinal_sttResult.getText().toString() + "주문 완료되었습니다! 감사합니다.")
@@ -90,6 +101,17 @@ class Side_Final : AppCompatActivity() {
                 }
             }
 
+             */
+            if(Token.side==""){
+                ttsClient?.play(Token.menu+" "+Token.first+"주문 완료되었습니다. 감사합니다~")
+            }else{
+                if(Token.menu==""){
+                    ttsClient?.play(Token.side+" "+Token.first+"주문 완료되었습니다. 감사합니다~")
+                }else{
+                    ttsClient?.play(Token.menu+" "+Token.side+Token.first+"주문 완료되었습니다. 감사합니다~")
+                }
+            }
+
             sfinal_sttStart.setOnClickListener {
                 var builder = SpeechRecognizerClient.Builder()
                     .setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB)
@@ -98,6 +120,8 @@ class Side_Final : AppCompatActivity() {
 
                 sttClient?.setSpeechRecognizeListener(listener1)
                 sttClient?.startRecording(true);
+                val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
 
                 Toast.makeText(this, "음성인식을 시작합니다.", Toast.LENGTH_SHORT).show();
 
@@ -133,6 +157,8 @@ class Side_Final : AppCompatActivity() {
                 }
 
                 override fun onResults(results: Bundle?) {
+                    val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
                     var builder: StringBuilder? = null
 
                     var texts =
@@ -153,6 +179,17 @@ class Side_Final : AppCompatActivity() {
                             //builder?.append(confs.get(i).intValue())
                             //builder?.append(")\n")
                         }
+                    }
+
+                    var txt0="다시"
+                    var txt1="처음"
+                    if (txt0 in texts.toString()||txt1 in texts.toString()) {
+                        Toast.makeText(applicationContext, "다시", Toast.LENGTH_LONG)
+                            .show()
+                        val intent =
+                            Intent(applicationContext, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
 /*
                     var txt1="네"

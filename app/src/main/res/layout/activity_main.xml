@@ -7,25 +7,61 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/first_sttStart"
+        android:layout_width="380dp"
+        android:layout_height="283dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bt_background"
+        android:backgroundTint="#FFD54F"
+        android:elevation="30dp"
+        android:text="음성인식 시작"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/f_bt_reset"
+        android:layout_width="181dp"
+        android:layout_height="377dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/bt_background"
+        android:backgroundTint="#E57373"
+        android:elevation="30dp"
+        android:text="처음으로"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/first_sttStart"
+        app:layout_constraintEnd_toStartOf="@+id/f_bt_back"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/f_bt_back"
+        android:layout_width="180dp"
+        android:layout_height="378dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/bt_background"
+        android:backgroundTint="#64B5F6"
+        android:elevation="30dp"
+        android:text="뒤로"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/first_sttStart"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <TextView
-        android:id="@+id/first_sttResult"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="음성인식 결과가 여기에 표시됩니다."
-        android:textSize="18sp"
+        android:layout_marginTop="8dp"
+        android:text="말로 하는 키오스크"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/f_bt_reset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/first_sttStart"
-        android:layout_width="315dp"
-        android:layout_height="201dp"
-        android:layout_marginBottom="72dp"
-        android:text="음성인식 시작"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

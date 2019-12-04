@@ -7,51 +7,39 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/sfinal_sttResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="244dp"
-        android:text="음성인식 결과가 여기에 표시됩니다."
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/second_sttStart"
+    <Button
+        android:id="@+id/sfinal_sttStart"
+        android:layout_width="380dp"
+        android:layout_height="283dp"
+        android:layout_marginBottom="16dp"
+        android:text="음성인식 시작"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/sfinal_sttResult2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="음성인식 결과가 여기에 표시됩니다."
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/final_sttStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/final_sttResult"
-        app:layout_constraintVertical_bias="0.078" />
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/sfinal_sttResult3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="212dp"
-        android:layout_marginBottom="244dp"
-        android:text="음성인식 결과가 여기에 표시됩니다."
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/second_sttStart"
-        app:layout_constraintEnd_toEndOf="parent"
+    <Button
+        android:id="@+id/sf_bt_reset"
+        android:layout_width="179dp"
+        android:layout_height="391dp"
+        android:layout_marginTop="24dp"
+        android:text="처음으로"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toStartOf="@+id/sf_bt_back"
+        app:layout_constraintHorizontal_bias="0.405"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/sfinal_sttStart"
-        android:layout_width="315dp"
-        android:layout_height="201dp"
-        android:layout_marginBottom="72dp"
-        android:text="음성인식 시작"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/sf_bt_back"
+        android:layout_width="179dp"
+        android:layout_height="391dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="뒤로"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
