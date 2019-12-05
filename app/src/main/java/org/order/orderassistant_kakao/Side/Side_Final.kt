@@ -41,19 +41,6 @@ class Side_Final : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.side_final)
 
-        /*
-        //이전 액티비티에서 값 받아오기
-        val intent2 = intent
-        first = intent2.extras!!.getString("first")
-        menu = intent2.extras!!.getString("menu")
-        side=intent2.extras!!.getString("side")
-        sfinal_sttResult.setText(first)
-        sfinal_sttResult2.setText(menu)
-        sfinal_sttResult3.setText(side)
-
-         */
-
-
         var permission_network = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
         var permission_storage = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
         if(permission_network != PackageManager.PERMISSION_GRANTED) {
@@ -100,8 +87,8 @@ class Side_Final : AppCompatActivity() {
                     ttsClient?.play(sfinal_sttResult2.getText().toString() + " " + sfinal_sttResult3.getText().toString() + " " + sfinal_sttResult.getText().toString() + "주문완료되었습니다! 감사합니다.")
                 }
             }
-
              */
+
             if(Token.side==""){
                 ttsClient?.play(Token.menu+" "+Token.first+"주문 완료되었습니다. 감사합니다~")
             }else{
@@ -112,7 +99,7 @@ class Side_Final : AppCompatActivity() {
                 }
             }
 
-            sfinal_sttStart.setOnClickListener {
+            sf_sttStart.setOnClickListener {
                 var builder = SpeechRecognizerClient.Builder()
                     .setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB)
                 sttClient = builder.build()
@@ -191,44 +178,18 @@ class Side_Final : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     }
-/*
-                    var txt1="네"
-                    var txt2="아니"
-                    var txt3="사이드"
-
-                    if (txt1 in texts.toString()||txt3 in texts.toString()) {
-                        Toast.makeText(applicationContext, "사이드 주문", Toast.LENGTH_LONG)
-                            .show()
-                        //val intent =
-                        //    Intent(applicationContext, SecondActivity::class.java)
-                        intent.putExtra("first", first)
-                        intent.putExtra("menu", menu)
-                        startActivity(intent)
-                        finish()
-                    } else if (txt2 in texts.toString()) {
-                        Toast.makeText(applicationContext, "주문 끝", Toast.LENGTH_LONG)
-                            .show()
-                        /*
-                        val intent =
-                            Intent(applicationContext, SecondActivity::class.java)
-                        intent.putExtra("first", first)
-                        intent.putExtra("menu", menu)
-                        startActivity(intent)
-                        finish()
-                        */
-                        var end="주문이 완료되었어요. 감사합니다"
-                        ttsClient?.play(end)
-                    }else {
-                        var oneMore="한번 더 말해주세요."
-                        ttsClient?.play(oneMore)
-                    }
-
-                }
-
- */
-
                 }
             }
+        }
+        sf_bt_reset.setOnClickListener{
+            val intent =Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        sf_bt_back.setOnClickListener{
+            val intent =Intent(applicationContext, Sidemenu::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

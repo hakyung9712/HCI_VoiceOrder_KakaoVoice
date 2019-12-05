@@ -15,9 +15,11 @@ import com.kakao.sdk.newtoneapi.SpeechRecognizerClient
 import com.kakao.sdk.newtoneapi.TextToSpeechClient
 import com.kakao.sdk.newtoneapi.TextToSpeechListener
 import kotlinx.android.synthetic.main.sidemenu.*
+import org.order.orderassistant_kakao.Hamburger.Hamburger_Final
 import org.order.orderassistant_kakao.Hamburger.Hamburger_Start
 import org.order.orderassistant_kakao.MainActivity
 import org.order.orderassistant_kakao.R
+import org.order.orderassistant_kakao.SecondActivity
 import org.order.orderassistant_kakao.Token
 
 
@@ -41,15 +43,6 @@ class Sidemenu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sidemenu)
-
-        /*
-        //이전 액티비티에서 값 받아오기
-        val intent2 = intent
-        first = intent2.extras!!.getString("first")
-        menu = intent2.extras!!.getString("menu")
-
-         */
-
 
             //음성인식과 음성합성 두개의 초기화 코드를 다 넣어 줘야 에러가 없다.(뭐 이래)
             //SpeechRecognizerManager.getInstance().initializeLibrary(this)
@@ -229,8 +222,27 @@ class Sidemenu : AppCompatActivity() {
                     }
 
                 }
+        }
+        side_bt_reset.setOnClickListener{
+            val intent =
+                Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        side_bt_back.setOnClickListener{
+            val intent =Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
 
-
+            if(Token.menu==""){
+                val intent =Intent(applicationContext, SecondActivity::class.java)
+                startActivity(intent)
+                finish()
+            }else{
+                val intent =Intent(applicationContext, Hamburger_Final::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 

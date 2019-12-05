@@ -38,14 +38,6 @@ class Hamburger_Meat : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hamburger_meat)
 
-        /*
-        //이전 액티비티에서 값 받아오기
-        val intent2 = intent
-        first = intent2.extras!!.getString("first")
-
-         */
-
-
         var permission_network = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
         var permission_storage = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
         if(permission_network != PackageManager.PERMISSION_GRANTED) {
@@ -169,7 +161,7 @@ class Hamburger_Meat : AppCompatActivity() {
                         intent.putExtra("first", first)
                         intent.putExtra("menu", "빅맥")
                         startActivity(intent)
-                        finish()
+                        //finish()
                     } else if (txt2 in texts.toString()) {
                         Token.setmenu("1955 버거")
                         Toast.makeText(applicationContext, "1955버거 선택", Toast.LENGTH_LONG)
@@ -179,7 +171,7 @@ class Hamburger_Meat : AppCompatActivity() {
                         intent.putExtra("first", first)
                         intent.putExtra("menu", "1955 버거")
                         startActivity(intent)
-                        finish()
+                        //finish()
                     }else if (txt3 in texts.toString()) {
                         Token.setmenu("불고기 버거")
                         Toast.makeText(applicationContext, "불고기버거 선택", Toast.LENGTH_LONG)
@@ -189,7 +181,7 @@ class Hamburger_Meat : AppCompatActivity() {
                         intent.putExtra("first", first)
                         intent.putExtra("menu", "불고기 버거")
                         startActivity(intent)
-                        finish()
+                        //finish()
                     }else if (txt4 in texts.toString()) {
                         Token.setmenu("베이컨토마토디럭스")
                         Toast.makeText(applicationContext, "베이컨토마토디럭스 선택", Toast.LENGTH_LONG)
@@ -199,7 +191,7 @@ class Hamburger_Meat : AppCompatActivity() {
                         intent.putExtra("first", first)
                         intent.putExtra("menu", "베이컨토마토디럭스 버거")
                         startActivity(intent)
-                        finish()
+                        //finish()
                     } else if (txt5 in texts.toString()) {
                         Token.setmenu("치즈버거")
                         Toast.makeText(applicationContext, "치즈버거 선택", Toast.LENGTH_LONG)
@@ -209,7 +201,7 @@ class Hamburger_Meat : AppCompatActivity() {
                         intent.putExtra("first", first)
                         intent.putExtra("menu", "치즈 버거")
                         startActivity(intent)
-                        finish()
+                        //finish()
                     }else if (txt0 in texts.toString()) {
                         Toast.makeText(applicationContext, "다시", Toast.LENGTH_LONG)
                             .show()
@@ -229,10 +221,18 @@ class Hamburger_Meat : AppCompatActivity() {
                         var oneMore="한번 더 말해주세요."
                         ttsClient?.play(oneMore)
                     }
-
                 }
             }
-
+        }
+        meat_bt_reset.setOnClickListener{
+            val intent =Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        meat_bt_back.setOnClickListener{
+            val intent =Intent(applicationContext, Hamburger_Start::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

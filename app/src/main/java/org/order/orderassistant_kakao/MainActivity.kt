@@ -5,9 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.Ringtone
-import android.media.RingtoneManager
-import android.net.Uri
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -29,8 +26,6 @@ class MainActivity : AppCompatActivity() {
     var sttClient:SpeechRecognizerClient?=null
     val REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE:Int=0
     var listener1:SpeechRecognizeListener?=null
-
-
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,11 +66,10 @@ class MainActivity : AppCompatActivity() {
                     .build()
 
                 var strText = "어서오세요~ 맥도날드 입니다.왼쪽 위에는 처음으로, 오른쪽위에는 뒤로, 하단에는 말하기 시작 버튼이 있습니다. 하단 버튼을 누르고 매장 또는 포장 여부를 말해주세요."
-                //var strText="안녕"
                 ttsClient?.play(strText)
 
 
-                first_sttStart.setOnClickListener {
+                main_sttStart.setOnClickListener {
                     val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                     vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
 
@@ -182,6 +176,19 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
+        }
+
+        main_bt_reset.setOnClickListener{
+            val intent =
+                Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        main_bt_back.setOnClickListener{
+            val intent =
+                Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

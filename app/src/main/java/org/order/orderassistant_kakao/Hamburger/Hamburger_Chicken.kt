@@ -38,19 +38,11 @@ class Hamburger_Chicken : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hamburger_chicken)
 
-        /*
-        //이전 액티비티에서 값 받아오기
-        val intent2 = intent
-        first = intent2.extras!!.getString("first")
-
-         */
-
-
         var permission_network = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
         var permission_storage = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
         if(permission_network != PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG, "Permission to recode denied")
-            //ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), NETWORK_STATE_CODE)
+           //ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), NETWORK_STATE_CODE)
         } else {
             //음성인식과 음성합성 두개의 초기화 코드를 다 넣어 줘야 에러가 없다.(뭐 이래)
             SpeechRecognizerManager.getInstance().initializeLibrary(this)
@@ -167,7 +159,7 @@ class Hamburger_Chicken : AppCompatActivity() {
                         intent.putExtra("first", first)
                         intent.putExtra("menu", "상하이 버거")
                         startActivity(intent)
-                        finish()
+                        //finish()
                     } else if (txt2 in texts.toString()) {
                         Token.setmenu("맥치킨")
                         Toast.makeText(applicationContext, "맥치킨", Toast.LENGTH_LONG)
@@ -177,7 +169,7 @@ class Hamburger_Chicken : AppCompatActivity() {
                         intent.putExtra("first", first)
                         intent.putExtra("menu", "맥 치킨")
                         startActivity(intent)
-                        finish()
+                        //finish()
                     }else if (txt0 in texts.toString()) {
                         Toast.makeText(applicationContext, "다시", Toast.LENGTH_LONG)
                             .show()
@@ -200,7 +192,16 @@ class Hamburger_Chicken : AppCompatActivity() {
 
                 }
             }
-
+        }
+        chicken_bt_reset.setOnClickListener{
+            val intent =Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        chicken_bt_back.setOnClickListener{
+            val intent =Intent(applicationContext, Hamburger_Start::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

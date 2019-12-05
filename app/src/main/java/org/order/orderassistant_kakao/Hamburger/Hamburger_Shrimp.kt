@@ -38,14 +38,6 @@ class Hamburger_Shrimp : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hamburger_shrimp)
 
-        /*
-        //이전 액티비티에서 값 받아오기
-        val intent2 = intent
-        first = intent2.extras!!.getString("first")
-
-         */
-
-
         var permission_network = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
         var permission_storage = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
         if(permission_network != PackageManager.PERMISSION_GRANTED) {
@@ -166,7 +158,7 @@ class Hamburger_Shrimp : AppCompatActivity() {
                         intent.putExtra("first", first)
                         intent.putExtra("menu", "슈슈 버거")
                         startActivity(intent)
-                        finish()
+                        //finish()
                     } else if (txt2 in texts.toString()) {
                         Token.setmenu("슈비 버거")
                         Toast.makeText(applicationContext, "슈비 버거", Toast.LENGTH_LONG)
@@ -177,7 +169,7 @@ class Hamburger_Shrimp : AppCompatActivity() {
                         intent.putExtra("menu", "슈비 버거")
 
                         startActivity(intent)
-                        finish()
+                        //finish()
                     }else if (txt0 in texts.toString()) {
                         Toast.makeText(applicationContext, "다시", Toast.LENGTH_LONG)
                             .show()
@@ -197,10 +189,18 @@ class Hamburger_Shrimp : AppCompatActivity() {
                         var oneMore="한번 더 말해주세요."
                         ttsClient?.play(oneMore)
                     }
-
                 }
             }
-
+        }
+        shrimp_bt_reset.setOnClickListener{
+            val intent =Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        shrimp_bt_back.setOnClickListener{
+            val intent =Intent(applicationContext, Hamburger_Start::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

@@ -16,6 +16,7 @@ import com.kakao.sdk.newtoneapi.*
 import kotlinx.android.synthetic.main.activity_third_hamburger.*
 import org.order.orderassistant_kakao.MainActivity
 import org.order.orderassistant_kakao.R
+import org.order.orderassistant_kakao.SecondActivity
 import org.order.orderassistant_kakao.Token
 
 
@@ -36,14 +37,6 @@ class Hamburger_Start : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_third_hamburger)
-
-        /*
-        //이전 액티비티에서 값 받아오기
-        val intent2 = intent
-        first = intent2.extras!!.getString("first")
-
-         */
-
 
         var permission_network = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
         var permission_storage = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
@@ -203,6 +196,16 @@ class Hamburger_Start : AppCompatActivity() {
                 }
             }
 
+        }
+        third_bt_reset.setOnClickListener{
+            val intent =Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        third_bt_back.setOnClickListener{
+            val intent =Intent(applicationContext, SecondActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

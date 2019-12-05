@@ -38,14 +38,6 @@ class SecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
-/*
-        //이전 액티비티에서 값 받아오기
-        val intent2 = intent
-        first = intent2.extras!!.getString("first")
-
- */
-
-
             //음성인식과 음성합성 두개의 초기화 코드를 다 넣어 줘야 에러가 없다.(뭐 이래)
             SpeechRecognizerManager.getInstance().initializeLibrary(this)
             TextToSpeechManager.getInstance().initializeLibrary(this)
@@ -191,8 +183,18 @@ class SecondActivity : AppCompatActivity() {
                     }
 
                 }
-
-
+        }
+        second_bt_reset.setOnClickListener{
+            val intent =
+                Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        second_bt_back.setOnClickListener{
+            val intent =
+                Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

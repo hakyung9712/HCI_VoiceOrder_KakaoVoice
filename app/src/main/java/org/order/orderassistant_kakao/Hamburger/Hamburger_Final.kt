@@ -40,17 +40,6 @@ class Hamburger_Final : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hamburger_final)
 
-        /*
-        //이전 액티비티에서 값 받아오기
-        val intent2 = intent
-        first = intent2.extras!!.getString("first")
-        menu = intent2.extras!!.getString("menu")
-        hfinal_sttResult.setText(first)
-        hfinal_sttResult2.setText(menu)
-
-         */
-
-
         var permission_network = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
         var permission_storage = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
         if(permission_network != PackageManager.PERMISSION_GRANTED) {
@@ -84,11 +73,9 @@ class Hamburger_Final : AppCompatActivity() {
                 })
                 .build()
 
-
-            //ttsClient?.play(hfinal_sttResult2.getText().toString()+" "+hfinal_sttResult.getText().toString()+"주문하셨습니다.사이드 메뉴를 주문하시겠어요?")
             ttsClient?.play(Token.menu+Token.first+"주문하셨습니다. 사이드 메뉴를 주문하시겠어요?")
 
-            hfinal_sttStart.setOnClickListener {
+            hf_sttStart.setOnClickListener {
                 var builder = SpeechRecognizerClient.Builder()
                     .setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB)
                 sttClient = builder.build()
@@ -209,7 +196,14 @@ class Hamburger_Final : AppCompatActivity() {
 
                 }
             }
-
+        }
+        hf_bt_reset.setOnClickListener{
+            val intent =Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        hf_bt_back.setOnClickListener{
+            finish()
         }
     }
 
@@ -233,6 +227,5 @@ class Hamburger_Final : AppCompatActivity() {
         super.onDestroy()
         //TextToSpeechManager.getInstance().finalizeLibrary()
         //SpeechRecognizerManager.getInstance().finalizeLibrary();
-
     }
 }
