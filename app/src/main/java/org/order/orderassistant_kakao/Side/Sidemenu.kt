@@ -83,7 +83,7 @@ class Sidemenu : AppCompatActivity() {
 
 
                 sttClient?.setSpeechRecognizeListener(listener1)
-                sttClient?.startRecording(true);
+                sttClient?.startRecording(false);
                 val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                 vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
 
@@ -149,15 +149,15 @@ class Sidemenu : AppCompatActivity() {
                     //후렌치후라이, 맥너겟, 해쉬브라운,치킨텐더
                     var reset="처음"
                     val txt0 = "다시"
-                    val txt1 = "후렌치후라이"
+                    val txt1 = "후렌치"
                     val txt2 = "맥너겟"
-                    val txt3 = "해쉬브라운"
+                    val txt3 = "해쉬"
                     val txt4 = "치킨텐더"
                     val txt5 = "없어요"
                     val txt6 = "안할래요"
 
                     if (txt1 in texts.toString()) {
-                        Token.setside("후렌치 후라이")
+                        Token.setside("후렌치후라이")
                         Toast.makeText(applicationContext, "후렌치후라이 선택", Toast.LENGTH_LONG).show()
                         val intent =Intent(applicationContext, Side_Final::class.java)
                         intent.putExtra("first", first)

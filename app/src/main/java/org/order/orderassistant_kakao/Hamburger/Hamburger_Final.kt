@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_final.*
 import kotlinx.android.synthetic.main.hamburger_final.*
 import org.order.orderassistant_kakao.MainActivity
 import org.order.orderassistant_kakao.R
+import org.order.orderassistant_kakao.Side.Side_Final
 import org.order.orderassistant_kakao.Side.Sidemenu
 import org.order.orderassistant_kakao.Token
 
@@ -82,7 +83,7 @@ class Hamburger_Final : AppCompatActivity() {
 
 
                 sttClient?.setSpeechRecognizeListener(listener1)
-                sttClient?.startRecording(true)
+                sttClient?.startRecording(false)
                 val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                 vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
 
@@ -153,27 +154,17 @@ class Hamburger_Final : AppCompatActivity() {
                     var txt3="사이드"
 
                     if (txt1 in texts.toString()||txt3 in texts.toString()||txt4 in texts.toString()||txt5 in texts.toString()) {
-                        Toast.makeText(applicationContext, "사이드 주문", Toast.LENGTH_LONG)
-                            .show()
-                        val intent =
-                            Intent(applicationContext, Sidemenu::class.java)
-                        intent.putExtra("first", first)
-                        intent.putExtra("menu", menu)
+                        Toast.makeText(applicationContext, "사이드 주문", Toast.LENGTH_LONG).show()
+                        val intent =Intent(applicationContext, Sidemenu::class.java)
                         startActivity(intent)
                         finish()
                     } else if (txt2 in texts.toString()) {
-                        Toast.makeText(applicationContext, "주문 끝", Toast.LENGTH_LONG)
-                            .show()
-                        /*
-                        val intent =
-                            Intent(applicationContext, SecondActivity::class.java)
-                        intent.putExtra("first", first)
-                        intent.putExtra("menu", menu)
+                        Toast.makeText(applicationContext, "주문 끝", Toast.LENGTH_LONG).show()
+                        val intent=Intent(applicationContext,Side_Final::class.java)
                         startActivity(intent)
                         finish()
-                        */
-                        var end="주문이 완료되었어요. 감사합니다"
-                        ttsClient?.play(end)
+                        //var end="주문이 완료되었어요. 감사합니다"
+                        //ttsClient?.play(end)
                     }else if (txt0 in texts.toString()) {
                         Toast.makeText(applicationContext, "다시", Toast.LENGTH_LONG)
                             .show()

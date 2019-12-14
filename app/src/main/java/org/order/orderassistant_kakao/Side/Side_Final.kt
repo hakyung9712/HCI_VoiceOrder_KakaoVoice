@@ -40,6 +40,60 @@ class Side_Final : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.side_final)
+        sf_sttStart.isEnabled=true
+
+        if(Token.side=="") {
+            if (Token.menu == "맥치킨") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.chicken_mac))
+            } else if (Token.menu == "상하이 버거") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.chicken_shanghai))
+            } else if (Token.menu == "빅맥") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.meat_bigmac))
+            } else if (Token.menu == "1955 버거") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.meat_1955))
+            } else if (Token.menu == "불고기 버거") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.meat_bulgogi))
+            } else if (Token.menu == "베이컨토마토디럭스") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.meat_bacon))
+            } else if (Token.menu == "치즈버거") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.meat_cheese))
+            } else if (Token.menu == "슈슈 버거") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.shrimp_shushu))
+            } else if (Token.menu == "슈비 버거") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.shimp_shubi))
+            }
+        }else if(Token.menu==""){
+            if(Token.side=="후렌치후라이"){
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.side_french))
+            }else if(Token.side=="맥너겟"){
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.side_mac))
+            }else if(Token.side=="해쉬브라운"){
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.side_hash))
+            }else if(Token.side=="치킨텐더"){
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.side_chickentender))
+            }
+        }else{
+            if (Token.menu == "맥치킨") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.chicken_mac))
+            } else if (Token.menu == "상하이 버거") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.chicken_shanghai))
+            } else if (Token.menu == "빅맥") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.meat_bigmac))
+            } else if (Token.menu == "1955 버거") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.meat_1955))
+            } else if (Token.menu == "불고기 버거") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.meat_bulgogi))
+            } else if (Token.menu == "베이컨토마토디럭스") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.meat_bacon))
+            } else if (Token.menu == "치즈버거") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.meat_cheese))
+            } else if (Token.menu == "슈슈 버거") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.shrimp_shushu))
+            } else if (Token.menu == "슈비 버거") {
+                sf_sttStart.setBackgroundDrawable(resources.getDrawable(R.drawable.shimp_shubi))
+            }
+        }
+        //후렌치후라이, 맥너겟, 해쉬브라운,치킨텐더
 
         var permission_network = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
         var permission_storage = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
@@ -88,12 +142,15 @@ class Side_Final : AppCompatActivity() {
                 }
             }
              */
-
+            //사이드 X, 햄버거 O
             if(Token.side==""){
                 ttsClient?.play(Token.menu+" "+Token.first+"주문 완료되었습니다. 감사합니다~")
+
             }else{
+                //사이드 O, 햄버거 X
                 if(Token.menu==""){
                     ttsClient?.play(Token.side+" "+Token.first+"주문 완료되었습니다. 감사합니다~")
+
                 }else{
                     ttsClient?.play(Token.menu+" "+Token.side+Token.first+"주문 완료되었습니다. 감사합니다~")
                 }
@@ -106,7 +163,7 @@ class Side_Final : AppCompatActivity() {
 
 
                 sttClient?.setSpeechRecognizeListener(listener1)
-                sttClient?.startRecording(true);
+                sttClient?.startRecording(false);
                 val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                 vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
 

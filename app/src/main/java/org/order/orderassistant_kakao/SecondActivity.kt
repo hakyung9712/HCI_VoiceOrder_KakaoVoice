@@ -39,8 +39,8 @@ class SecondActivity : AppCompatActivity() {
         setContentView(R.layout.activity_second)
 
             //음성인식과 음성합성 두개의 초기화 코드를 다 넣어 줘야 에러가 없다.(뭐 이래)
-            SpeechRecognizerManager.getInstance().initializeLibrary(this)
-            TextToSpeechManager.getInstance().initializeLibrary(this)
+            SpeechRecognizerManager.getInstance().initializeLibrary(this@SecondActivity)
+            TextToSpeechManager.getInstance().initializeLibrary(this@SecondActivity)
 
 
             //TTS 클라이언트 생성
@@ -79,7 +79,7 @@ class SecondActivity : AppCompatActivity() {
 
 
                 sttClient?.setSpeechRecognizeListener(listener1)
-                sttClient?.startRecording(true);
+                sttClient?.startRecording(false)
                 val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                 vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
 
@@ -89,15 +89,12 @@ class SecondActivity : AppCompatActivity() {
 
             listener1 = object : SpeechRecognizeListener {
                 override fun onReady() {
-
                 }
 
                 override fun onFinished() {
-
                 }
 
                 override fun onPartialResult(partialResult: String?) {
-
                 }
 
                 override fun onBeginningOfSpeech() {

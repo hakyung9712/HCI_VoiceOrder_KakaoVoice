@@ -83,7 +83,7 @@ class Hamburger_Meat : AppCompatActivity() {
 
 
                 sttClient?.setSpeechRecognizeListener(listener1)
-                sttClient?.startRecording(true)
+                sttClient?.startRecording(false)
                 val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                 vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
 
@@ -150,7 +150,7 @@ class Hamburger_Meat : AppCompatActivity() {
                     val txt1 = "빅맥"
                     val txt2 = "1955"
                     val txt3 = "불고기"
-                    val txt4 = "베이컨토마토"
+                    val txt4 = "베이컨"
                     val txt5 = "치즈"
                     if (txt1 in texts.toString()) {
                         Token.setmenu("빅맥")

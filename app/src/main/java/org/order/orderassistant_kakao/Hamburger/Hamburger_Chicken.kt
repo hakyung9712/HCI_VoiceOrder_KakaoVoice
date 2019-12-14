@@ -83,7 +83,7 @@ class Hamburger_Chicken : AppCompatActivity() {
 
 
                 sttClient?.setSpeechRecognizeListener(listener1)
-                sttClient?.startRecording(true)
+                sttClient?.startRecording(false)
                 val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                 vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
 
@@ -148,7 +148,7 @@ class Hamburger_Chicken : AppCompatActivity() {
                     var reset="처음"
                     var txt0="다시"
                     var txt1="상하이"
-                    var txt2="맥치킨"
+                    var txt2="치킨"
 
                     if (txt1 in texts.toString()) {
                         Token.setmenu("상하이 버거")

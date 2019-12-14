@@ -65,11 +65,12 @@ class MainActivity : AppCompatActivity() {
                     })
                     .build()
 
-                var strText = "어서오세요~ 맥도날드 입니다.왼쪽 위에는 처음으로, 오른쪽위에는 뒤로, 하단에는 말하기 시작 버튼이 있습니다. 하단 버튼을 누르고 매장 또는 포장 여부를 말해주세요."
+                var strText = "어서오세요~ 맥도날드 입니다.왼쪽 위에는 처음으로, 오른쪽위에는 뒤로, 하단에는 말하기 시작 버튼이 항상 있습니다. 하단 버튼을 누르고 매장 또는 포장 여부를 말해주세요."
                 ttsClient?.play(strText)
 
 
                 main_sttStart.setOnClickListener {
+                    ttsClient?.stop()
                     val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                     vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
 
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
 
                     sttClient?.setSpeechRecognizeListener(listener1)
-                    sttClient?.startRecording(true);
+                    sttClient?.startRecording(false)
 
                     Toast.makeText(this,"음성 인식을 시작합니다.",Toast.LENGTH_LONG).show()
                 }
@@ -145,19 +146,16 @@ class MainActivity : AppCompatActivity() {
                         var txt2="포장"
                         if (txt1 in texts.toString()) {
                             Token.setfirst("매장")
-                            Toast.makeText(applicationContext, "매장 주문", Toast.LENGTH_LONG)
-                                .show()
+                            Toast.makeText(applicationContext, "매장 주문", Toast.LENGTH_LONG).show()
                             val intent =Intent(applicationContext, SecondActivity::class.java)
-                            intent.putExtra("first", "매장")
+                            //intent.putExtra("first", "매장")
                             startActivity(intent)
                             finish()
                         } else if (txt2 in texts.toString()) {
                             Token.setfirst("포장")
-                            Toast.makeText(applicationContext, "포장 주문", Toast.LENGTH_LONG)
-                                .show()
+                            Toast.makeText(applicationContext, "포장 주문", Toast.LENGTH_LONG).show()
                             val intent =
                                 Intent(applicationContext, SecondActivity::class.java)
-                            intent.putExtra("first", "포장")
                             startActivity(intent)
                             finish()
                         }else if (txt0 in texts.toString()||reset in texts.toString()) {

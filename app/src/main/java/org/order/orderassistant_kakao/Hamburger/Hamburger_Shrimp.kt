@@ -83,7 +83,7 @@ class Hamburger_Shrimp : AppCompatActivity() {
 
 
                 sttClient?.setSpeechRecognizeListener(listener1)
-                sttClient?.startRecording(true);
+                sttClient?.startRecording(false);
                 val vib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                 vib.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
 
@@ -148,7 +148,7 @@ class Hamburger_Shrimp : AppCompatActivity() {
                     var reset="처음"
                     var txt0="다시"
                     var txt1="슈슈"
-                    var txt2="슈비"
+                    var txt2="비"
                     if (txt1 in texts.toString()) {
                         Token.setmenu("슈슈 버거")
                         Toast.makeText(applicationContext, "슈슈 버거", Toast.LENGTH_LONG)
