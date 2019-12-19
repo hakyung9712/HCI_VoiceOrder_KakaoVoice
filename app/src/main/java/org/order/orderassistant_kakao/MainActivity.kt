@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 //TTS 클라이언트 생성
                 ttsClient = TextToSpeechClient.Builder()
                     .setSpeechMode(TextToSpeechClient.NEWTONE_TALK_2)     // 음성합성방식
-                    .setSpeechSpeed(1.0)            // 발음 속도(0.5~4.0)
+                    .setSpeechSpeed(0.9)            // 발음 속도(0.5~4.0)
                     .setSpeechVoice(TextToSpeechClient.VOICE_WOMAN_READ_CALM)  //TTS 음색 모드 설정(여성 차분한 낭독체)
                     .setListener(object : TextToSpeechListener {
                         //아래 두개의 메소드만 구현해 주면 된다. 음성합성이 종료될 때 호출된다.
@@ -179,6 +179,9 @@ class MainActivity : AppCompatActivity() {
         main_bt_reset.setOnClickListener{
             val intent =
                 Intent(applicationContext, MainActivity::class.java)
+            Token.setmenu("")
+            Token.setside("")
+            Token.setfirst("")
             startActivity(intent)
             finish()
         }

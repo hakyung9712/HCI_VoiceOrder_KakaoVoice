@@ -226,6 +226,9 @@ class Sidemenu : AppCompatActivity() {
         side_bt_reset.setOnClickListener{
             val intent =
                 Intent(applicationContext, MainActivity::class.java)
+            Token.setmenu("")
+            Token.setside("")
+            Token.setfirst("")
             startActivity(intent)
             finish()
         }

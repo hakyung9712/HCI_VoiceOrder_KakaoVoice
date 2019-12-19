@@ -151,6 +151,8 @@ class Hamburger_Final : AppCompatActivity() {
                     var txt4="응"
                     var txt5="어"
                     var txt2="아니"
+                    var txt7="아니요"
+                    var txt8="필요없어"
                     var txt3="사이드"
 
                     if (txt1 in texts.toString()||txt3 in texts.toString()||txt4 in texts.toString()||txt5 in texts.toString()) {
@@ -158,7 +160,7 @@ class Hamburger_Final : AppCompatActivity() {
                         val intent =Intent(applicationContext, Sidemenu::class.java)
                         startActivity(intent)
                         finish()
-                    } else if (txt2 in texts.toString()) {
+                    } else if (txt2 in texts.toString()||txt7 in texts.toString()||txt8 in texts.toString()) {
                         Toast.makeText(applicationContext, "주문 끝", Toast.LENGTH_LONG).show()
                         val intent=Intent(applicationContext,Side_Final::class.java)
                         startActivity(intent)
@@ -190,6 +192,9 @@ class Hamburger_Final : AppCompatActivity() {
         }
         hf_bt_reset.setOnClickListener{
             val intent =Intent(applicationContext, MainActivity::class.java)
+            Token.setmenu("")
+            Token.setside("")
+            Token.setfirst("")
             startActivity(intent)
             finish()
         }
